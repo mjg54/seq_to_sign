@@ -1,0 +1,38 @@
+seqToSign version 0.9
+GuertinMJ@gmail.com
+
+Prior to running seqToSign, you need to install the following dependencies:
+the 'lattice' library for R:
+http://cran.r-project.org/web/packages/lattice/index.html
+
+and the 'sys', 'getopt', 'pyfasta', and 'string' libraries for Python
+http://docs.python.org/dev/library/sys
+http://docs.python.org/dev/library/getopt
+https://pypi.python.org/pypi/pyfasta/
+http://docs.python.org/dev/library/string
+
+If you have little command line experience, it is best to put the entire "seq_to_sign" folder in your home directory first.
+
+1) navigate to the seq_to_sign folder 
+$ cd ~/seq_to_sign
+
+2) Make seqToSign executable:
+$ chmod +x seqToSign
+
+3) Change lines 36 and 37 to reflect the directories in which the .R and .py files are stored; this is set if you put the seq_to_sign folder in the home directory.
+
+4) Call the program directly or move it into your $PATH
+$ ~/seq_to_sign/seqToSign 
+
+seqToSign usage:
+
+~/seq_to_sign/seqToSign -q ~/seq_to_sign/test_files/naked_dna_quad_cut_freq.txt -m ~/seq_to_sign/test_files/mast.srf.hg19.chr1.txt -f ~/seq_to_sign/test_files/hg19.chr1.fa -n SRF -w 20 -o 1
+
+-q tetranucleotide frequency file
+-f genomic fasta file
+-m mast input file; perform genomic mast using the fasta file specified by '-f'
+-n name of the motif
+-w the distance on each side of the motif center that you want to query
+-o optional specification of which motif to use in the mast file; default == 1
+
+note that the meme outfile for SRF is also provided in the test_files

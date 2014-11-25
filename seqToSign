@@ -1,0 +1,42 @@
+#!/bin/bash
+quad=
+fasta=
+mast=
+name=
+window=
+mastmotif=1
+while getopts "q:f:m:n:w:o:" OPTION
+do
+    case $OPTION in
+	q)
+            quad=$OPTARG
+            ;;
+	f)
+            fasta=$OPTARG
+            ;;
+	m)
+            mast=$OPTARG
+            ;;
+	n)
+	    name=$OPTARG
+	    ;;
+	w)
+	    window=$OPTARG
+	    ;;
+	o)
+	    mastmotif=$OPTARG
+	    ;;
+
+    esac
+done
+
+if [ -n "$quad" ] && [ -n "$fasta" ] && [ -n "$mast" ] && [ -n "$name" ] && [ -n "$window" ]; then
+    #rprog=$(find / -name 'seq_to_sign.R' -print -quit 2>/dev/null )
+    #pyscript=$(find / -name 'seq_to_sign.py' -print -quit 2>/dev/null)
+    rprog=~/seq_to_sign/seq_to_sign.R
+    pyscript=~/seq_to_sign/seq_to_sign.py
+    Rscript $rprog $quad $mast $fasta $name $window $mastmotif $pyscript
+else 
+    echo -e "\nPrior to running seqToSign, you need to install the following dependencies:\nthe 'lattice' library for R\n\nand the 'sys', 'getopt', 'pyfasta', and 'string' libraries for Python\n\nseqToSign usage:\nseqToSign -q naked_dna_quad_cut_freq.txt -m mast.srf.hg19.chr1.txt -f hg19.chr1.fa -n SRF -w 20 -o 1\n-q tetranucleotide frequency file\n-f genomic fasta file\n-m mast input file; perform genomic mast using the fasta file specified by '-f'\n-n name of the motif\n-w the distance on each side of the motif center that you want to query\n-o optional specification of which motif to use in the mast file; default == 1"
+fi
+
